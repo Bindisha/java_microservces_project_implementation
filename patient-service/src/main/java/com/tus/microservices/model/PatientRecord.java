@@ -6,8 +6,7 @@ public record PatientRecord(
         int age,
         String gender,
         String phoneNumber,
-        String email,
-        Long doctorId
+        String email
         ) {
 
 }

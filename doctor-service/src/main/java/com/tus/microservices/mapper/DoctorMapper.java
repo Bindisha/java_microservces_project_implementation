@@ -4,16 +4,13 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import com.tus.microservices.entity.Doctor;
 import com.tus.microservices.model.DoctorRecord;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface DoctorMapper {
 	
-	DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
-
 	@Mapping(source = "name" , target = "name")
 	@Mapping(source = "specialization" , target = "specialization")
 	@Mapping(source = "phoneNumber" , target = "phoneNumber")

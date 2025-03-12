@@ -16,9 +16,6 @@ import lombok.Setter;
 @Table(name = "patients")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Patient {
 
 	@Id
