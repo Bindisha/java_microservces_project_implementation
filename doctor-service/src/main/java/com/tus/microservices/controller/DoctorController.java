@@ -47,6 +47,7 @@ public class DoctorController {
 	
 	@GetMapping
 	public ResponseEntity<List<DoctorRecord>> getAllDoctors(@RequestParam(required = false) String name) {
+		log.info("get doctors list");
 		try {
 			List<DoctorRecord> records = new ArrayList();
 			
@@ -66,6 +67,7 @@ public class DoctorController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<DoctorRecord> getTutorialById(@PathVariable("id") Long id) {
+		log.info("get doctor by id:"+id);
 		if(id!=null)
 		{
 			DoctorRecord doctorDetail = doctorService.getDoctorDetails(id);

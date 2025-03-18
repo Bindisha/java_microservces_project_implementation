@@ -10,31 +10,3 @@ spring:
    server:
     native:
      search-locations: classpath:configuration
-
-eureka:
-  instance:
-   hostname: localhost
-   prefer-ip-address: true
-  client:
-   service-url:
-    defaultZone: http://localhost:8761/eureka/
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-  endpoint:
-    health:
-      show-details: always
-  metrics:
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
-  tracing:
-    sampling:
-      probablity: 1.0     
-  prometheus:
-    metrics:
-      export:
-        enabled: true   
