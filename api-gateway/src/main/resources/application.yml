@@ -1,39 +1,5 @@
-server:
-  port: 8222
 spring:
-  application:
-    name: api-gateway
-  config:
-    import: optional:configserver:http://localhost:8888
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-      routes:
-      - id: doctors
-        uri: http://localhost:8091
-        predicates:
-        - Path=/v1/doctor/**
-      - id: patients
-        uri: http://localhost:8092
-        predicates:
-        - Path=/v1/patient/**
-management:
-  endpoints:
-   web:
-    exposure:
-     include: health,info,prometheus
-  endpoint:
-   health:
-    show-details: always
-  zipkin:
-   tracing:
-    endpoint: http://65.2.169.60:9411/api/v2/spans
-  tracing:
-   sampling:
-    probablity: 1.0
-  prometheus:
-   metrics:
-    export:
-     enable: true
+ application:
+  name: api-gateway
+ config:
+  import: optional:configserver:http://localhost:8888
