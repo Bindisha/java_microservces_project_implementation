@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tus.microservices.model.DoctorRecord;
 import com.tus.microservices.service.DoctorService;
+import com.tus.microservices.service.PatientClient;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,9 @@ public class DoctorController {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private PatientClient patientClient;
 	
 	@GetMapping("/test")
 	public String sayHello() {
@@ -116,4 +120,10 @@ public class DoctorController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+
+	@GetMapping("/patients/{doctorId}")
+    public List<String> getPatientsForDoctor(@PathVariable String doctorId) {
+        return patientClient.getPatients(doctorId);
+    }
 }
