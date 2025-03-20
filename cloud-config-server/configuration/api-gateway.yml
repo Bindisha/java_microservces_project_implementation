@@ -17,6 +17,11 @@ spring:
       uri: lb://PATIENT-SERVICE
       predicates:
       - Path=/v1/patient/**
+    - id: appointments
+      uri: lb://APPOINTMENT-SERVICE
+      predicates:
+      - Path=/v1/appointment/**
+	  
 # security:
 #  oauth2:
 #   client:

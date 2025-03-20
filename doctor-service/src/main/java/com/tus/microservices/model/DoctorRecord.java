@@ -3,7 +3,7 @@ package com.tus.microservices.model;
 public record DoctorRecord(
 		Long id,
         String name,
-        String specialization,
+        Specialization specialization,
         String phoneNumber,
         String email
         ) {

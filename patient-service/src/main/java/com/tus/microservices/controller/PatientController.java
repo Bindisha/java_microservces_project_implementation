@@ -16,18 +16,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tus.microservices.model.AppointmentRecord;
 import com.tus.microservices.model.PatientRecord;
+import com.tus.microservices.service.AppointmentServiceClient;
 import com.tus.microservices.service.PatientService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequestMapping("/v1/patient")
 @RestController
+@RequiredArgsConstructor
 public class PatientController {
 	
-	@Autowired
-	private PatientService patientService;
+	private final PatientService patientService;
+	private final AppointmentServiceClient appointmentServiceClient;
 	
 	@GetMapping("/test")
 	public String sayHello() {
@@ -114,4 +118,9 @@ public class PatientController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@PostMapping("/bookAppointment")
+    public String bookAppointment(@RequestBody AppointmentRecord appointmentRecord) {
+        return appointmentServiceClient.bookAppointment(appointmentRecord);
+    }
 }
