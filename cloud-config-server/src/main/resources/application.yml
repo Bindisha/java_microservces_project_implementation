@@ -3,10 +3,17 @@ server:
 spring:
  application:
   name: cloud-config-server
- profiles:
-  active: native
+# profiles:
+#  active: native
  cloud:
   config:
    server:
-    native:
-     search-locations: classpath:configuration
+    git:
+     uri: https://github.com/sachin19927/HSM-config.git
+     clone-on-start: true
+     search-paths: configuration
+     default-label: master
+#     username: ${GIT_USERNAME}
+#     password: ${GIT_PASSWORD}
+#    native:
+#     search-locations: classpath:configuration

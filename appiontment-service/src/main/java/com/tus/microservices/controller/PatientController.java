@@ -16,49 +16,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tus.microservices.model.DoctorRecord;
-import com.tus.microservices.service.DoctorService;
-import com.tus.microservices.service.PatientClient;
+import com.tus.microservices.model.PatientRecord;
+import com.tus.microservices.service.PatientService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RequestMapping("/v1/doctor")
+@RequestMapping("/v1/patient")
 @RestController
-public class DoctorController {
+public class PatientController {
 	
 	@Autowired
-	private DoctorService doctorService;
-	
-	@Autowired
-	private PatientClient patientClient;
+	private PatientService patientService;
 	
 	@GetMapping("/test")
 	public String sayHello() {
-		log.info("Doctor logs");
-		return "hello doctor";
+		log.info("Patient logs");
+		return "hello patient";
 	}
 	
 	@PostMapping
-	public ResponseEntity<DoctorRecord> createDoctor(@RequestBody DoctorRecord doctorRecord) {
+	public ResponseEntity<PatientRecord> createDoctor(@RequestBody PatientRecord PatientRecord) {
 		log.info("Save Doctor");
-		if(doctorRecord!=null) {
-			DoctorRecord doctorDetail = doctorService.saveDoctor(doctorRecord);
+		if(PatientRecord!=null) {
+			PatientRecord doctorDetail = patientService.savePatient(PatientRecord);
 			return new ResponseEntity<>(doctorDetail,HttpStatus.OK);
 		}
 		return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<DoctorRecord>> getAllDoctors(@RequestParam(required = false) String name) {
-		log.info("get doctors list");
+	public ResponseEntity<List<PatientRecord>> getAllDoctors(@RequestParam(required = false) String name) {
 		try {
-			List<DoctorRecord> records = new ArrayList();
+			List<PatientRecord> records = new ArrayList();
 			
 			if (name == null)
-				doctorService.getAllDoctorData().forEach(records::add);
+				patientService.getAllPatientData().forEach(records::add);
 			else
-				doctorService.getAllDoctorDataByName(name).forEach(records::add);
+				patientService.getAllPatientsDataByName(name).forEach(records::add);
 
 			if (records.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -70,11 +65,10 @@ public class DoctorController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<DoctorRecord> getTutorialById(@PathVariable("id") Long id) {
-		log.info("get doctor by id:"+id);
+	public ResponseEntity<PatientRecord> getTutorialById(@PathVariable("id") Long id) {
 		if(id!=null)
 		{
-			DoctorRecord doctorDetail = doctorService.getDoctorDetails(id);
+			PatientRecord doctorDetail = patientService.getPatientDetails(id);
 			if(doctorDetail!=null) {
 				return new ResponseEntity<>(doctorDetail, HttpStatus.OK);
 			}
@@ -83,11 +77,11 @@ public class DoctorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<DoctorRecord> updateTutorial(@PathVariable("id") Long id, @RequestBody DoctorRecord updateData) {
+	public ResponseEntity<PatientRecord> updateTutorial(@PathVariable("id") Long id, @RequestBody PatientRecord updateData) {
 		
-		DoctorRecord result;
+		PatientRecord result;
 		if(id!=null) {
-			DoctorRecord existData=doctorService.updateDoctor(id,updateData);
+			PatientRecord existData=patientService.updatePatient(id,updateData);
 			if(existData!=null) {
 					return new ResponseEntity<>(existData, HttpStatus.OK);	
 			}
@@ -104,7 +98,7 @@ public class DoctorController {
 	public ResponseEntity<HttpStatus> deleteRecord(@PathVariable("id") Long id) {
 		if(id!=null)
 		{
-			doctorService.deleteById(id);
+			patientService.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		else
@@ -114,16 +108,10 @@ public class DoctorController {
 	@DeleteMapping
 	public ResponseEntity<HttpStatus> deleteAllRecords() {
 		try {
-			doctorService.deleteAll();
+			patientService.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-
-	@GetMapping("/patients/{doctorId}")
-    public List<String> getPatientsForDoctor(@PathVariable String doctorId) {
-        return patientClient.getPatients(doctorId);
-    }
 }
