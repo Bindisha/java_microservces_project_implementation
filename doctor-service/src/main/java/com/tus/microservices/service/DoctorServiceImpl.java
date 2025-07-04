@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tus.microservices.entity.Doctor;
 import com.tus.microservices.mapper.DoctorMapper;
 import com.tus.microservices.model.DoctorRecord;
+import com.tus.microservices.model.Specialization;
 import com.tus.microservices.repository.DoctorRepository;
 
 @Service
@@ -75,7 +76,6 @@ public class DoctorServiceImpl implements DoctorService {
 			Doctor modifiedDoctor = doctor.get();
 			modifiedDoctor.setName(updateData.name());
 			modifiedDoctor.setSpecialization(updateData.specialization());
-			modifiedDoctor.setPhoneNumber(updateData.phoneNumber());
 			modifiedDoctor.setEmail(updateData.email());
 			doctorRepositry.save(modifiedDoctor);
 			doctorDetail = mapper.entityDataToRecord(modifiedDoctor);
@@ -84,5 +84,10 @@ public class DoctorServiceImpl implements DoctorService {
 		else
 			return doctorDetail;
 	}
+	
+	@Override
+	public List<DoctorRecord> getDoctorsBySpecialization(Specialization specialization) {
+        return mapper.entityListToRecordList(doctorRepositry.findBySpecialization(specialization));
+    }
 
 }

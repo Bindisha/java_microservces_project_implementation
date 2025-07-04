@@ -9,7 +9,7 @@ spring:
   config:
    server:
     git:
-     uri: https://github.com/sachin19927/HSM-config.git
+     uri: https://github.com/Bindisha/HSM-config.git
      clone-on-start: true
      search-paths: configuration
      default-label: master

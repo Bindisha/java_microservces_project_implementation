@@ -1,5 +1,7 @@
 package com.tus.microservices.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,17 +15,15 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "patients")
+@Table(name = "appointments")
 @Getter
 @Setter
-public class Patient {
+public class Appointment {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private int age;
-    private String gender;
-    private String phoneNumber;
-    private String email;
+    private Long doctorId;
+    private Long patientId;
+    private LocalDate appointmentDate;
 }
