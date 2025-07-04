@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:15432/postgres_docker_db?currentSchema=hsm-appointment
-    username: sachin19927
-    password: Sachin@123
+    username: bindisha0101
+    password: bindisha@123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
